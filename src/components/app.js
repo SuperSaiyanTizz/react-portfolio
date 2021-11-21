@@ -7,7 +7,7 @@ export default class App extends Component {
       <div className='app'>
         <h1>Felipe Dolpheo</h1>
         <div>{moment().format('MMMM Do YYYY, h:mm:ss a')}</div>
-        <h2></h2>
+        <h2>randoms</h2>
       </div>
     );
   }
