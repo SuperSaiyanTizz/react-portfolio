@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { EditorState, convertToRaw } from "draft-js";
+import { EditorState, convertToRaw, ContentState, Entity} from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import draftToHtml from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
@@ -18,6 +18,15 @@ export default class richTextEditor extends Component {
      this.getBase64 = this.getBase64.bind(this);
      this.uploadFile = this.uploadFile.bind(this);
    }
+     componentWillMount() {
+       if (this.props.editMode && this.props.contentToEdit) {
+         const blocksFromHtml = htmlToDraft(this.props.contentToEdit);
+         const { contentBlocks, entityMap } = blocksFromHtml;
+         const contentState = contentState.createFromBlockArray(contentBlocks, entityMap);
+         const editorState = EditorState.createWithContent(contnetState);
+         this.setState({ editorState });
+       }
+     }
    
      onEditorStateChange(editorState) {
          this.setState 

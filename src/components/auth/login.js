@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios' ;
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export default class Login extends Component {
     constructor(props) {
         super(props);
 
-        this.State = {
+        this.state = {
             email: "",
             password:"",
             errorText:""
@@ -23,7 +24,7 @@ export default class Login extends Component {
       }
 
       handleSubmit (event) {
-        axios.post("https://api.devcamp.space.sessons",
+        axios.post("https://api.devcamp.space/sessions",
         {
             client: {
                 email: this.state.email,
@@ -34,7 +35,7 @@ export default class Login extends Component {
         { withCredentials: true }
         )
         .then( response => {
-          if (response.data.status) {
+          if (response.data.status ==="created") {
             this.props.handleSuccessfulAuth();
           }else{
               this.setState({
@@ -61,7 +62,9 @@ export default class Login extends Component {
 
                 <div>{this.state.errorText}</div>
             
-            <form onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit} className="auth-form-wrapper">
+              <div className="form-group">
+                <FontAwesomeIcon icon="envelope" />
                 <input 
                 type= "email"
                 name= "email"
@@ -69,6 +72,9 @@ export default class Login extends Component {
                 value={this.state.email}
                 onChange={this.handleChange}
                 />
+
+                <div className="form-group">
+                <FontAwesomeIcon icon="lock" />
                 <input 
                 type= "password"
                 name= "password"
@@ -76,13 +82,17 @@ export default class Login extends Component {
                 value={this.state.password}
                 onChange={this.handleChange}
                 />
-
-                <div>
-                    <button type="submit">Login </button>
-                </div>
+              </div>
+             
+              </div>
+               
+              <button className="btn" type="submit">
+                Login
+              </button>
+                
            
-           </form>
-           </div>
-        ); 
-      }
-    }
+             </form>
+              </div>
+         ); 
+       }
+     }
